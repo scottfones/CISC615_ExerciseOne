@@ -64,13 +64,7 @@ public class RomanConverterImplA implements RomanConverter {
     // From: https://algorithms.tutorialhorizon.com/convert-integer-to-roman/
     // Change: Method name
     // Change: Return a string rather than print output
-    // Change: Added check to return "Invalid" with non-positive input
     public String toRoman(int num) {
-        if (num <= 0) {
-            throw new IllegalArgumentException("Input must be > 0: %d".formatted(num));
-        }
-
-        System.out.println("Integer: " + num);
         int[] values = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
         String[] romanLiterals = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
 
