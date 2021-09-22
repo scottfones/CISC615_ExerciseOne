@@ -19,10 +19,6 @@ public class FunctionalityTests {
         return (thous + 1) * 1000 + (hunds + 1) * 100 + (tens + 1) * 10 + (ones + 1) * 1;
     }
 
-    public static String constructStr(String[] numeralArray) {
-        return String.join("", numeralArray);
-    }
-
     @BeforeEach
     public void setUp() {
         converter = new RomanConverterImplB();
@@ -43,15 +39,38 @@ public class FunctionalityTests {
 
     @Test
     public void testFromRomanValidCombinations() {
-        for (int thous = 0; thous < numeralThous.length; thous++) {
-            for (int hunds = 0; hunds < numeralHunds.length; hunds++) {
-                for (int tens = 0; tens < numeralTens.length; tens++) {
-                    for (int ones = 0; ones < numeralOnes.length; ones++) {
-                        int intVal = constructInt(thous, hunds, tens, ones);
-                        String strVal = numeralThous[thous] + numeralHunds[hunds] + numeralTens[tens]
-                                + numeralOnes[ones];
+        int intVal = 1000;
+        String strVal = "";
+
+        for (String thous : numeralThous) {
+            if (intVal % 1000 == 0) {
+                strVal = thous;
+
+                assertEquals(intVal, converter.fromRoman(strVal));
+                intVal += 100;
+            }
+
+            for (String hunds : numeralHunds) {
+                if (intVal % 100 == 0) {
+                    strVal = thous + hunds;
+
+                    assertEquals(intVal, converter.fromRoman(strVal));
+                    intVal += 10;
+                }
+
+                for (String tens : numeralTens) {
+                    if (intVal % 10 == 0) {
+                        strVal = thous + hunds + tens;
 
                         assertEquals(intVal, converter.fromRoman(strVal));
+                        intVal += 1;
+                    }
+
+                    for (String ones : numeralOnes) {
+                        strVal = thous + hunds + tens + ones;
+
+                        assertEquals(intVal, converter.fromRoman(strVal));
+                        intVal += 1;
                     }
                 }
             }
