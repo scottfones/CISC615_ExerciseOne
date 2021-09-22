@@ -17,26 +17,37 @@ public class InterfaceTests {
 
     @Test
     public void testFromRomanNull() {
-        assertNotNull(converter.fromRoman(null));
+        assertThrows(NullPointerException.class, () -> converter.fromRoman(null));
     }
 
     @Test
-    public void testFromRomanNotNull() {
+    public void testFromRomanEmpty() {
+        assertThrows(IllegalArgumentException.class, () -> converter.fromRoman(""));
+    }
+
+
+    @Test
+    public void testFromRomanInvalidLengthThree() {
         String[] valArray = { "a", "A", "9", "-", " " };
 
         for (String s0 : valArray) {
             for (String s1 : valArray) {
                 for (String s2 : valArray) {
-                    String testString = s0 + s1 + s2;
-                    assertNotNull(converter.fromRoman(testString));
+                    String testStr = s0 + s1 + s2;
+                    assertThrows(IllegalArgumentException.class, () -> converter.fromRoman(testStr));
                 }
             }
         }
     }
 
+    @Test
+    public void testToRomanValid() {
+        assertNotNull(converter.toRoman(1));
+    }
+
     @ParameterizedTest
-    @ValueSource(ints = { Integer.MIN_VALUE, -1, 0, 1, Integer.MAX_VALUE })
-    public void testToRoman(int arabicIn) {
-        assertNotNull(converter.toRoman(arabicIn));
+    @ValueSource(ints = { Integer.MIN_VALUE, -1, 0, Integer.MAX_VALUE })
+    public void testToRomanInvalid(int intVal) {
+        assertThrows(IllegalArgumentException.class, () -> converter.toRoman(intVal));
     }
 }
