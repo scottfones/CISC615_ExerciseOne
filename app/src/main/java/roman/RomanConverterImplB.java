@@ -74,9 +74,4 @@ public class RomanConverterImplB implements RomanConverter {
 
         return sb.toString();
     }
-
-    public static void main(String[] args) {
-        RomanConverter converter = new RomanConverterImplB();
-        System.out.println(converter.fromRoman("IIIIIIIIIII"));
-    }
 }
