@@ -25,27 +25,14 @@ public class RomanConverterImplA implements RomanConverter {
     // https://www.geeksforgeeks.org/converting-roman-numerals-decimal-lying-1-3999/
     // Change: Function name
     // Change: Removed comments
-    // Change: Added invalid char error
     public int fromRoman(String str) {
         int res = 0;
-
-        if (str.length() == 0) {
-            throw new IllegalArgumentException("Invalid roman numeral: %d".formatted(str));
-        }
 
         for (int i = 0; i < str.length(); i++) {
             int s1 = value(str.charAt(i));
 
-            if (s1 == -1) {
-                throw new IllegalArgumentException("Invalid roman numeral: %d".formatted(s1));
-            }
-
             if (i + 1 < str.length()) {
                 int s2 = value(str.charAt(i + 1));
-
-                if (s2 == -1) {
-                    throw new IllegalArgumentException("Invalid roman numeral: %d".formatted(s1));
-                }
 
                 if (s1 >= s2) {
                     res = res + s1;
@@ -77,8 +64,5 @@ public class RomanConverterImplA implements RomanConverter {
             }
         }
         return roman.toString();
-    }
-
-    public static void main(String[] args) {
     }
 }
